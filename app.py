@@ -17,6 +17,10 @@ from flight_monitor import (
 
 app = Flask(__name__, static_folder='static')
 
+# Инициализация БД при загрузке модуля (работает и с gunicorn)
+init_db()
+threading.Thread(target=monitor_all, daemon=True).start()
+
 # ─── API эндпоинты ─────────────────────────────────────────────────────────────
 
 @app.route('/api/flights')
